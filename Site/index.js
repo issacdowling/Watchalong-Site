@@ -27,6 +27,6 @@ socket.onerror = function(error) {
 socket.onmessage = function(event) {
     console.log(`[message] Data received from server: ${event.data}`);
 
-    videoID = videoIDs[Math.floor(Math.random() * videoIDs.length)];
+    
     document.querySelector("#video").innerHTML = makeEmbedFromVideoID(event.data, true)
     };
