@@ -10,12 +10,11 @@ const serverPort = 3000,
 
 //when a websocket connection is established
 websocketServer.on('connection', (webSocketClient) => {
-    //send feedback to the incoming connection
-    // //webSocketClient.send('{ "connection" : "ok"}');
 
+    // Send the video ID
     webSocketClient.send("MYrfLmm_cT4")
     
-    //when a message is received
+    //when a message is received, echo it
     webSocketClient.on('message', (message) => {
 
         console.log(message)
