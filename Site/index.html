@@ -18,17 +18,11 @@
             </p>
         </div>
 
-        <div id="videoBox">
-            <p>Not connected</p>
-        </div>
+        <div id="videoBox"></div>
 
         <div class="mainButtonContainer">
             <input id="urlInput" type="text" placeholder="127.0.0.1:3000" />
-            <button
-                class="mainButton"
-                type="button"
-                onclick="connectToServer()"
-            >
+            <button id="mainButton" type="button" onclick="serverToggle()">
                 Connect to server
             </button>
         </div>

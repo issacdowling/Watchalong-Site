@@ -1,22 +1,27 @@
-function connectToServer() {
+let socket;
+
+setAllDisconnected(socket);
+
+function serverToggle() {
+  if (socket != undefined && socket.readyState == 1) {
+    socket.close();
+    setAllDisconnected();
+    return;
+  }
+
   console.log(
     "Attempting to connect to " + document.querySelector("#urlInput").value,
   );
 
-  let socket;
   try {
     socket = new WebSocket("ws://" + document.querySelector("#urlInput").value);
   } catch {
-    console.log("Failed to connect");
-    document.querySelector("#videoBox").innerHTML =
-      "<p>Failed to connect to specified server</p>";
+    setAllFailedConnection("Unknown error");
     return;
   }
 
   socket.onopen = function (e) {
-    console.log("[open] Connection established");
-    document.querySelector("#videoBox").innerHTML =
-      "<p>Successfully connected, waiting for video</p>";
+    setAllConnected();
   };
 
   socket.onmessage = function (event) {
@@ -26,6 +31,10 @@ function connectToServer() {
       event.data,
       true,
     );
+  };
+
+  socket.onerror = () => {
+    setAllFailedConnection("Unknown error");
   };
 }
 
@@ -47,4 +56,24 @@ function makeEmbedFromVideoID(ID, autoplay) {
   //     "'></iframe>"
   //   );
   // }
+}
+
+function setAllDisconnected() {
+  console.log("Disconnected from server");
+  document.querySelector("#videoBox").innerHTML = "<p>Not connected</p>";
+  document.querySelector("#mainButton").innerHTML = "Connect to server";
+}
+
+function setAllConnected() {
+  console.log("Connected to server");
+
+  document.querySelector("#videoBox").innerHTML =
+    "<p>Successfully connected, waiting for video</p>";
+  document.querySelector("#mainButton").innerHTML = "Disconnect from server";
+}
+
+function setAllFailedConnection(error) {
+  console.log("Failed to connect: " + error);
+  document.querySelector("#videoBox").innerHTML =
+    "<p>Failed to connect to specified server: " + error + "</p>";
 }

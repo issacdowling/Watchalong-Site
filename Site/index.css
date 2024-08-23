@@ -31,7 +31,7 @@ body {
     height: 30rem;
 }
 
-.mainButton {
+#mainButton {
     background-color: var(--box-bg);
     border-radius: var(--consistent-radius);
     border-color: black;
