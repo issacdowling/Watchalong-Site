@@ -1,5 +1,31 @@
 // Make websocket connection to server
-let socket = new WebSocket("ws://127.0.0.1:3000");
+let socket;
+
+function connectToServer() {
+  console.log(
+    "Attempting to connect to " + document.querySelector("#urlInput").value,
+  );
+  let socket = new WebSocket(document.querySelector("#urlInput").value);
+
+  socket.onopen = function (e) {
+    console.log("[open] Connection established");
+    console.log("Sending to server");
+    socket.send("Hello");
+  };
+
+  socket.onerror = function (error) {
+    console.log(`[error]`);
+  };
+
+  socket.onmessage = function (event) {
+    console.log(`Video ID received from server: ${event.data}`);
+
+    document.querySelector("#videoBox").innerHTML = makeEmbedFromVideoID(
+      event.data,
+      true,
+    );
+  };
+}
 
 // Give it a youtube video ID, it'll give you an embed iframe thing
 function makeEmbedFromVideoID(ID, autoplay) {
@@ -20,26 +46,3 @@ function makeEmbedFromVideoID(ID, autoplay) {
   //   );
   // }
 }
-
-// When the connection is opened:
-socket.onopen = function (e) {
-  console.log("[open] Connection established");
-  console.log("Sending to server");
-  socket.send("Hello");
-};
-
-// When the connection errors:
-socket.onerror = function (error) {
-  console.log(`[error]`);
-};
-
-// When the connection recieves a message:
-socket.onmessage = function (event) {
-  console.log(`Video ID received from server: ${event.data}`);
-  console.log(document.querySelector("#urlInput").value);
-
-  document.querySelector("#videoBox").innerHTML = makeEmbedFromVideoID(
-    event.data,
-    true,
-  );
-};
