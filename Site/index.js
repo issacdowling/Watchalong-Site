@@ -2,6 +2,7 @@ function connectToServer() {
   console.log(
     "Attempting to connect to " + document.querySelector("#urlInput").value,
   );
+
   let socket;
   try {
     socket = new WebSocket("ws://" + document.querySelector("#urlInput").value);

@@ -17,7 +17,13 @@
                 suggest using Firefox if autoplay isn't working for you.
             </p>
         </div>
-        <div class="mainButtonBox">
+
+        <div id="videoBox">
+            <p>Not connected</p>
+        </div>
+
+        <div class="mainButtonContainer">
+            <input id="urlInput" type="text" placeholder="127.0.0.1:3000" />
             <button
                 class="mainButton"
                 type="button"
@@ -25,18 +31,6 @@
             >
                 Connect to server
             </button>
-            <button
-                class="mainButton"
-                type="button"
-                onclick="check_if_server()"
-            >
-                ?????
-            </button>
-            <input id="urlInput" type="text" placeholder="127.0.0.1:3000" />
-        </div>
-
-        <div id="videoBox">
-            <p>Not connected</p>
         </div>
 
         <script src="index.js"></script>
