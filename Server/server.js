@@ -1,10 +1,8 @@
 "use strict";
 
-const serverPort = 3000,
+const wsPort = 3000,
   http = require("http"),
-  express = require("express"),
-  app = express(),
-  server = http.createServer(app),
+  server = http.createServer(),
   WebSocket = require("ws"),
   websocketServer = new WebSocket.Server({ server });
 
@@ -19,10 +17,10 @@ function sendRandomVideo(wsc) {
 websocketServer.on("connection", (webSocketClient) => {
   console.log("New connection");
   // Send a video every five seconds (0.5 for debugging)
-  setInterval(sendRandomVideo, 500, webSocketClient);
+  setInterval(sendRandomVideo, 5000, webSocketClient);
 });
 
 //start the web server
-server.listen(serverPort, () => {
-  console.log(`Websocket server started on port ` + serverPort);
+server.listen(wsPort, () => {
+  console.log(`Websocket server started on port ` + wsPort);
 });
