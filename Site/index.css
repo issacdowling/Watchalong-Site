@@ -1,6 +1,19 @@
-* {
-    font-family: sans-serif;
+body {
     background-color: #1e1e1e;
-    color: white;
+    margin: 1rem;
+}
+
+.infoText {
+    font-family: sans-serif;
+    color: grey;
     text-align: center;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.infoTextBox {
+    background-color: #00000088;
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1rem;
 }
