@@ -17,14 +17,27 @@
                 suggest using Firefox if autoplay isn't working for you.
             </p>
         </div>
-        <form>
-            <button type="button" onclick="connect_to_server()">
-                Connect to server
-            </button>
-            <button type="button" onclick="check_if_server()">?????</button>
-        </form>
+        <div class="mainButtonBox">
+            <form>
+                <button
+                    class="mainButton"
+                    type="button"
+                    onclick="connect_to_server()"
+                >
+                    Connect to server
+                </button>
+                <button
+                    class="mainButton"
+                    type="button"
+                    onclick="check_if_server()"
+                >
+                    ?????
+                </button>
+                <input id="urlInput" type="text" />
+            </form>
+        </div>
 
-        <div id="video"></div>
+        <div id="videoBox"></div>
 
         <script src="index.js"></script>
     </body>

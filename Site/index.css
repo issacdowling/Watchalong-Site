@@ -1,19 +1,48 @@
+:root {
+    --box-bg: #00000088;
+}
 body {
     background-color: #1e1e1e;
     margin: 1rem;
+    color: white;
 }
 
 .infoText {
     font-family: sans-serif;
-    color: grey;
+    color: lightgrey;
     text-align: center;
     font-weight: 800;
     font-size: 1rem;
 }
 
-.infoTextBox {
-    background-color: #00000088;
+.infoTextBox,
+#videoBox {
+    background-color: var(--box-bg);
     border-radius: 1rem;
     margin: 1rem;
     padding: 1rem;
+}
+
+#videoBox {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    width: auto;
+    height: 30rem;
+}
+
+.mainButton {
+    background-color: var(--box-bg);
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    border-color: black;
+}
+
+.mainButtonBox {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
 }

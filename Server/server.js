@@ -18,19 +18,8 @@ function sendRandomVideo(wsc) {
 //when a websocket connection is established
 websocketServer.on("connection", (webSocketClient) => {
   console.log("New connection");
-  // Send a video every five seconds
-  setInterval(sendRandomVideo, 5000, webSocketClient);
-
-  //when a message is received, echo it
-  webSocketClient.on("message", (message) => {
-    console.log(message);
-
-    //for each websocket client
-    websocketServer.clients.forEach((client) => {
-      //send the client the current message
-      //client.send(`{ "message" : ${message} }`);
-    });
-  });
+  // Send a video every five seconds (0.5 for debugging)
+  setInterval(sendRandomVideo, 500, webSocketClient);
 });
 
 //start the web server
