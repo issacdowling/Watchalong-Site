@@ -1,5 +1,6 @@
 :root {
     --box-bg: #00000088;
+    --consistent-radius: 1rem;
 }
 body {
     background-color: #1e1e1e;
@@ -18,7 +19,7 @@ body {
 .infoTextBox,
 #videoBox {
     background-color: var(--box-bg);
-    border-radius: 1rem;
+    border-radius: var(--consistent-radius);
     margin: 1rem;
     padding: 1rem;
 }
@@ -34,15 +35,28 @@ body {
 
 .mainButton {
     background-color: var(--box-bg);
-    border-radius: 1rem;
+    border-radius: var(--consistent-radius);
     color: white;
     font-weight: bold;
-    padding: 1rem;
     border-color: black;
+    margin: 1rem;
+    flex: 1;
+    text-align: center;
+    vertical-align:;
 }
 
 .mainButtonBox {
-    margin: 2rem;
     display: flex;
     justify-content: center;
+    padding: 1rem;
+    height: 5rem;
+}
+
+input[type="text"] {
+    background-color: var(--box-bg);
+    border-radius: var(--consistent-radius);
+    margin: 1rem;
+    padding: 1rem;
+    color: white;
+    flex: 1;
 }

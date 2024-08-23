@@ -18,26 +18,26 @@
             </p>
         </div>
         <div class="mainButtonBox">
-            <form>
-                <button
-                    class="mainButton"
-                    type="button"
-                    onclick="connectToServer()"
-                >
-                    Connect to server
-                </button>
-                <button
-                    class="mainButton"
-                    type="button"
-                    onclick="check_if_server()"
-                >
-                    ?????
-                </button>
-                <input id="urlInput" type="text" />
-            </form>
+            <button
+                class="mainButton"
+                type="button"
+                onclick="connectToServer()"
+            >
+                Connect to server
+            </button>
+            <button
+                class="mainButton"
+                type="button"
+                onclick="check_if_server()"
+            >
+                ?????
+            </button>
+            <input id="urlInput" type="text" placeholder="127.0.0.1:3000" />
         </div>
 
-        <div id="videoBox"></div>
+        <div id="videoBox">
+            <p>Not connected</p>
+        </div>
 
         <script src="index.js"></script>
     </body>

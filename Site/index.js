@@ -1,20 +1,21 @@
-// Make websocket connection to server
-let socket;
-
 function connectToServer() {
   console.log(
     "Attempting to connect to " + document.querySelector("#urlInput").value,
   );
-  let socket = new WebSocket(document.querySelector("#urlInput").value);
+  let socket;
+  try {
+    socket = new WebSocket("ws://" + document.querySelector("#urlInput").value);
+  } catch {
+    console.log("Failed to connect");
+    document.querySelector("#videoBox").innerHTML =
+      "<p>Failed to connect to specified server</p>";
+    return;
+  }
 
   socket.onopen = function (e) {
     console.log("[open] Connection established");
-    console.log("Sending to server");
-    socket.send("Hello");
-  };
-
-  socket.onerror = function (error) {
-    console.log(`[error]`);
+    document.querySelector("#videoBox").innerHTML =
+      "<p>Successfully connected, waiting for video</p>";
   };
 
   socket.onmessage = function (event) {
