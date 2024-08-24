@@ -1,26 +1,34 @@
 "use strict";
 
-const wsPort = 3000,
-  http = require("http"),
-  server = http.createServer(),
+const wsPort = 5000,
+  express = require("express"),
+  bodyParser = require("body-parser"),
+  app = express(),
+  server = app.listen(wsPort),
   WebSocket = require("ws"),
-  websocketServer = new WebSocket.Server({ server });
+  websocketServer = new WebSocket.Server({ noServer: true });
 
-function sendRandomVideo(wsc) {
-  let videoIDs = ["MYrfLmm_cT4", "i_mLxyIXpSY", "8mrNEVUuZdk", "OCJYDJXDRHw"];
-  let videoID = videoIDs[Math.floor(Math.random() * videoIDs.length)];
-  wsc.send(videoID);
-  return videoID;
-}
+let clients = [];
 
-//when a websocket connection is established
+// TODO: Remove client on disconnect
 websocketServer.on("connection", (webSocketClient) => {
   console.log("New connection");
-  // Send a video every five seconds (0.5 for debugging)
-  setInterval(sendRandomVideo, 5000, webSocketClient);
+  clients.push(webSocketClient);
 });
 
-//start the web server
-server.listen(wsPort, () => {
-  console.log(`Websocket server started on port ` + wsPort);
+app.use(bodyParser.text());
+
+app.post("/submit", (request, response) => {
+  console.log("Received video ID: " + request.body);
+  response.send(request.body);
+  clients.forEach((client) => {
+    client.send(request.body);
+  });
+});
+
+console.log(`Websocket server started on port ` + wsPort);
+server.on("upgrade", (request, socket, head) => {
+  websocketServer.handleUpgrade(request, socket, head, (socket) => {
+    websocketServer.emit("connection", socket, request);
+  });
 });
