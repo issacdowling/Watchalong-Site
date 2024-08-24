@@ -22,13 +22,22 @@ const extractIdFromUrl = (url) => {
 // Global state somewhat unideal (currentId) but seems to make everything cleaner in this case
 // Also, I wanted to pass in the URL too, but setInterval seems to lock href to whatever it was at page load,
 // where including it in this function lets it change.
-const checkURLChange = () => {
+const checkURLChange = async () => {
   let foundId = extractIdFromUrl(document.location.href);
   if (foundId == currentId) {
     return;
   }
-
   currentId = foundId;
+
+  fetch("http://127.0.0.1:5000/submit", {
+    method: "post",
+    headers: {
+      "content-type": "text/plain",
+    },
+    mode: "no-cors",
+    body: currentId,
+  });
+
   console.log(
     "[Watchalong Manager] URL CHANGED, found the video ID: " + foundId,
   );
