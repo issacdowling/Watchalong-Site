@@ -40,22 +40,13 @@ function serverToggle() {
 
 // Give it a youtube video ID, it'll give you an embed iframe thing
 function makeEmbedFromVideoID(ID, autoplay) {
-  return ID;
-
-  // Just commented for debugging
-  // if (autoplay) {
-  //   return (
-  //     "<iframe width='560' height='315' src='https://www.youtube.com/embed/" +
-  //     ID +
-  //     "?autoplay=1'></iframe>"
-  //   );
-  // } else {
-  //   return (
-  //     "<iframe width='560' height='315' src='https://www.youtube.com/embed/" +
-  //     ID +
-  //     "'></iframe>"
-  //   );
-  // }
+  if (autoplay) {
+    return (
+      "<iframe width='560' height='315' src='https://www.youtube.com/embed/" +
+      ID +
+      "?autoplay=1'></iframe>"
+    );
+  }
 }
 
 function setAllDisconnected() {
