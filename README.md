@@ -6,7 +6,7 @@ Intended to allow sharing music with live viewers without actually streaming cop
 ## Changing the secret
 To prevent random people from changing the video being shown, you - as the owner of the server - will have a secret key that's sent along with the video ID to prove that you should be allowed to change it. You don't have to think about this while using it (the extension sends the video and your key automatically), but you do need to set it once.
 
-If you're on Linux and want a random key, just run
+If you're on Linux and want a random key, just run (where the provided number is the size in bytes)
 ```
 openssl rand --base64 32
 ```
