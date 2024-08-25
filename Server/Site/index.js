@@ -1,5 +1,9 @@
 let socket;
 
+document.querySelector("#urlInput").value = new URL(
+  document.location.href,
+).host;
+
 setAllDisconnected(socket);
 
 function serverToggle() {
