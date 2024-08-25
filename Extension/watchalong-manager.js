@@ -5,6 +5,9 @@ const host = "127.0.0.1",
   path = "/submit",
   secure = false;
 
+// TODO: Make this not hardcoded
+const HARDCODED_SUBMIT_SECRET = "changeMe";
+
 let currentId;
 
 const extractIdFromUrl = (url) => {
@@ -47,7 +50,7 @@ const checkURLChange = async () => {
       "content-type": "text/plain",
     },
     mode: "no-cors",
-    body: currentId,
+    body: HARDCODED_SUBMIT_SECRET + currentId,
   });
 
   console.log(
