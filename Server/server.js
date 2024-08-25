@@ -26,7 +26,7 @@ app.use((request, response, next) => {
   next();
 });
 
-app.use("/", express.static("../Site/"));
+app.use("/", express.static("Site"));
 
 app.post("/submit", (request, response) => {
   console.log("Received video ID: " + request.body);
