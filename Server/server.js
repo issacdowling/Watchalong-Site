@@ -6,7 +6,17 @@ const port = 8080,
   app = express(),
   server = app.listen(port),
   WebSocket = require("ws"),
-  websocketServer = new WebSocket.Server({ noServer: true });
+  websocketServer = new WebSocket.Server({ noServer: true }),
+  submitSecret =
+    process.env.SUBMIT_SECRET == undefined
+      ? "changeMe"
+      : process.env.SUBMIT_SECRET;
+
+if (submitSecret == "changeMe") {
+  console.log(
+    "Running with the default submit secret of 'changeMe', you should change this!",
+  );
+}
 
 let clients = [];
 let currentId = "";
@@ -36,11 +46,22 @@ app.use((request, response, next) => {
 app.use("/", express.static("Site"));
 
 app.post("/submit", (request, response) => {
-  console.log("Received video ID: " + request.body);
-  response.send(request.body);
-  currentId = request.body;
+  if (typeof request.body != typeof "") {
+    console.log("Received bad request");
+    response.status(400).send("Bad request");
+    return;
+  }
+  if (!request.body.startsWith(submitSecret)) {
+    console.log("Received unauthorised request");
+    response.status(401).send("Unauthorised");
+    return;
+  }
+  let receivedId = request.body.slice(submitSecret.length);
+  console.log("Received video ID: " + receivedId);
+  response.status(200).send(receivedId);
+  currentId = receivedId;
   clients.forEach((client) => {
-    client.send(request.body);
+    client.send(receivedId);
   });
 });
 
