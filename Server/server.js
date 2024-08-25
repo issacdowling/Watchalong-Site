@@ -40,6 +40,10 @@ app.use((request, response, next) => {
   response.removeHeader("Date");
   response.removeHeader("Connection");
   response.removeHeader("Keep-Alive");
+  response.setHeader("Access-Control-Allow-Origin", "https://www.youtube.com");
+  response.setHeader("Access-Control-Allow-Methods", "POST");
+  response.setHeader("Access-Control-Allow-Headers", "authorization");
+
   next();
 });
 
@@ -51,12 +55,12 @@ app.post("/submit", (request, response) => {
     response.status(400).send("Bad request");
     return;
   }
-  if (!request.body.startsWith(submitSecret)) {
+  if (request.headers.authorization != "Bearer " + submitSecret) {
     console.log("Received unauthorised request");
     response.status(401).send("Unauthorised");
     return;
   }
-  let receivedId = request.body.slice(submitSecret.length);
+  let receivedId = request.body;
   console.log("Received video ID: " + receivedId);
   response.status(200).send(receivedId);
   currentId = receivedId;

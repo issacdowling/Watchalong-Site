@@ -37,7 +37,7 @@ const extractIdFromUrl = (url) => {
 // Global state somewhat unideal (currentId) but seems to make everything cleaner in this case
 // Also, I wanted to pass in the URL too, but setInterval seems to lock href to whatever it was at page load,
 // where including it in this function lets it change.
-const checkURLChange = async () => {
+const reportURLChange = () => {
   let foundId = extractIdFromUrl(document.location.href);
   if (foundId == currentId) {
     return;
@@ -48,9 +48,10 @@ const checkURLChange = async () => {
     method: "post",
     headers: {
       "content-type": "text/plain",
+      authorization: "Bearer " + HARDCODED_SUBMIT_SECRET,
     },
-    mode: "no-cors",
-    body: HARDCODED_SUBMIT_SECRET + currentId,
+    mode: "cors",
+    body: currentId,
   });
 
   console.log(
@@ -60,4 +61,4 @@ const checkURLChange = async () => {
 
 // Doesn't seem like the most efficient way to do this, but any other
 // ways I found added much more complexity
-setInterval(checkURLChange, 1000);
+setInterval(reportURLChange, 1000);
