@@ -16,7 +16,15 @@ websocketServer.on("connection", (webSocketClient) => {
   clients.push(webSocketClient);
 });
 
+app.disable("x-powered-by");
+app.set("etag", false);
 app.use(bodyParser.text());
+app.use((request, response, next) => {
+  response.removeHeader("Date");
+  response.removeHeader("Connection");
+  response.removeHeader("Keep-Alive");
+  next();
+});
 
 app.post("/submit", (request, response) => {
   console.log("Received video ID: " + request.body);
