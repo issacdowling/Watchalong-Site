@@ -1,10 +1,10 @@
 "use strict";
 
-const wsPort = 5000,
+const port = 8080,
   express = require("express"),
   bodyParser = require("body-parser"),
   app = express(),
-  server = app.listen(wsPort),
+  server = app.listen(port),
   WebSocket = require("ws"),
   websocketServer = new WebSocket.Server({ noServer: true });
 
@@ -26,6 +26,8 @@ app.use((request, response, next) => {
   next();
 });
 
+app.use("/", express.static("../Site/"));
+
 app.post("/submit", (request, response) => {
   console.log("Received video ID: " + request.body);
   response.send(request.body);
@@ -34,7 +36,7 @@ app.post("/submit", (request, response) => {
   });
 });
 
-console.log(`Websocket server started on port ` + wsPort);
+console.log(`Server started on port ` + port);
 server.on("upgrade", (request, socket, head) => {
   websocketServer.handleUpgrade(request, socket, head, (socket) => {
     websocketServer.emit("connection", socket, request);
