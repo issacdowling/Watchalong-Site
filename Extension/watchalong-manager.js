@@ -1,5 +1,10 @@
 console.log("[Watchalong Manager] Loaded");
 
+const host = "127.0.0.1",
+  port = 8080,
+  path = "/submit",
+  secure = false;
+
 let currentId;
 
 const extractIdFromUrl = (url) => {
@@ -13,10 +18,17 @@ const extractIdFromUrl = (url) => {
     locationOfAmpersand = url.length;
   }
 
-  return url.slice(
+  let id = url.slice(
     url.indexOf(watchStr) + watchStr.length,
     locationOfAmpersand,
   );
+  // This is needed since the script seems to stay loaded when navigating away
+  // from the watch page, so we need to make sure that /results pages arent'
+  // interpreted as IDs.
+  if (id.includes("youtube.com")) {
+    return "NONE";
+  }
+  return id;
 };
 
 // Global state somewhat unideal (currentId) but seems to make everything cleaner in this case
@@ -29,7 +41,7 @@ const checkURLChange = async () => {
   }
   currentId = foundId;
 
-  fetch("http://127.0.0.1:5000/submit", {
+  fetch(secure ? "https://" : "http://" + host + ":" + port + path, {
     method: "post",
     headers: {
       "content-type": "text/plain",

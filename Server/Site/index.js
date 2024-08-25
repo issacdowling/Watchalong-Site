@@ -39,14 +39,15 @@ function serverToggle() {
 }
 
 // Give it a youtube video ID, it'll give you an embed iframe thing
-function makeEmbedFromVideoID(ID, autoplay) {
-  if (autoplay) {
-    return (
-      "<iframe width='560' height='315' src='https://www.youtube.com/embed/" +
-      ID +
-      "?autoplay=1'></iframe>"
-    );
+function makeEmbedFromVideoID(id, autoplay) {
+  if (id == "NONE") {
+    return "<p>Successfully connected, waiting for video</p>";
   }
+  return (
+    "<iframe width='560' height='315' src='https://www.youtube.com/embed/" +
+    id +
+    "?autoplay=1'></iframe>"
+  );
 }
 
 function setAllDisconnected() {
