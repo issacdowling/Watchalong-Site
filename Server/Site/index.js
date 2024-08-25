@@ -36,6 +36,10 @@ function serverToggle() {
   socket.onerror = () => {
     setAllFailedConnection("Unknown error");
   };
+
+  socket.onclose = () => {
+    setAllFailedConnection("Server closed");
+  };
 }
 
 // Give it a youtube video ID, it'll give you an embed iframe thing
